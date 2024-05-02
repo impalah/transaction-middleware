@@ -7,9 +7,7 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 from starlette.responses import JSONResponse, Response
 from starlette.types import ASGIApp
 
-from transaction_middleware.exceptions import InvalidTokenException
 from transaction_middleware.logging import logger
-from transaction_middleware.types import JWTAuthorizationCredentials, User
 
 
 class TransactionMiddleware(BaseHTTPMiddleware):

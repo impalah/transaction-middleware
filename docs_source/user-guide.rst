@@ -10,29 +10,24 @@ The steps, using FastAPI:
    from fastapi import FastAPI, Depends
    from starlette.requests import Request
    from starlette.responses import Response
-   from auth_middleware.functions import require_groups, require_user
-   from auth_middleware.jwt_auth_middleware import JwtAuthMiddleware
-   from auth_middleware.providers.cognito import CognitoProvider
+   from transaction_middleware import (
+       TransactionMiddleware,
+       get_transaction_id,
+       transaction_id_required,
+   )
 
    app: FastAPI = FastAPI()
-   app.add_middleware(JwtAuthMiddleware, auth_provider=CognitoProvider())
+   app.add_middleware(TransactionMiddleware)
 
-   @app.get("/",
-       dependencies=[
-           Depends(require_user()),
-       ],)
-   async def root(request: Request):
-       return {"message": f"Hello {request.state.current_user.name}"}
 
 Then set the environment variables (or your .env file)
 
 .. code-block:: bash
 
-   AWS_COGNITO_USER_POOL_ID=your_cognito_user_pool_id
-   AWS_COGNITO_USER_POOL_REGION=your_cognito_user_pool_region
+   TODO
 
 Call the method sending the id_token provided by Cognito:
 
 .. code-block:: bash
 
-   curl -X GET http://localhost:8000/ -H "Authorization: Bearer MY_ID_TOKEN"
+   curl -X GET http://localhost:8000/

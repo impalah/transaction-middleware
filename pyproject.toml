@@ -5,6 +5,24 @@ description = "Async Transaction Middleware for FastAPI/Starlette"
 authors = ["impalah <impalah@gmail.com>"]
 readme = "README.md"
 packages = [{include = "transaction_middleware", from = "src"}]
+license = "MIT"
+homepage = "https://impalah.github.io/transaction-middleware/"
+repository = "https://github.com/impalah/transaction-middleware"
+documentation = "https://impalah.github.io/transaction-middleware/"
+keywords = ["transaction", "middleware", "fastapi", "starlette"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Framework :: FastAPI",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP :: Session",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+
+
 
 [tool.poetry.dependencies]
 python = ">=3.10"
@@ -29,3 +47,7 @@ sphinx-rtd-theme = "^2.0.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Documentation" = "https://impalah.github.io/transaction-middleware/"
+"Source" = "https://github.com/impalah/transaction-middleware"

@@ -11,4 +11,4 @@ Using poetry:
 
 .. code-block:: bash
 
-   poetry add auth-middleware
+   poetry add transaction-middleware
