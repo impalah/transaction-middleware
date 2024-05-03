@@ -11,7 +11,7 @@ from uvicorn import run
 from transaction_middleware import (
     TransactionMiddleware,
     get_transaction_id,
-    transaction_id_required,
+    with_transaction_id,
 )
 
 templates = Jinja2Templates(directory="templates")
@@ -24,16 +24,15 @@ app.add_middleware(TransactionMiddleware)
     "/items/{id}",
     tags=["Item"],
 )
-@transaction_id_required(create_if_missing=True)
 async def read_items(
     request: Request,
     response: Response,
     id: str,
-    transaction_id: str = Depends(get_transaction_id),
+    transaction_id: str = Depends(get_transaction_id()),
 ):
     return {
         "id": id,
-        "transaction_id": transaction_id,
+        "transaction_id": transaction_id if transaction_id else "No transaction ID",
     }
 
 
@@ -41,12 +40,11 @@ async def read_items(
     "/status/{id}",
     tags=["Status"],
 )
-@transaction_id_required(create_if_missing=False)
 async def get_status(
     request: Request,
     response: Response,
     id: str,
-    transaction_id: str = Depends(get_transaction_id),
+    transaction_id: str = Depends(get_transaction_id(create_if_missing=False)),
 ):
     return {
         "id": id,
@@ -62,7 +60,7 @@ async def get_status(
     request: Request,
     response: Response,
     id: str,
-    transaction_id: str = Depends(get_transaction_id),
+    transaction_id: str = Depends(get_transaction_id()),
 ):
 
     return {

@@ -11,7 +11,7 @@ repository = "https://github.com/impalah/transaction-middleware"
 documentation = "https://impalah.github.io/transaction-middleware/"
 keywords = ["transaction", "middleware", "fastapi", "starlette"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Framework :: FastAPI",
@@ -20,9 +20,6 @@ classifiers = [
     "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-
-
-
 
 [tool.poetry.dependencies]
 python = ">=3.10"
