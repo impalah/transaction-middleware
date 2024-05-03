@@ -54,7 +54,6 @@
 <li class="toctree-l2"><a class="reference internal" href="transaction_middleware.html">transaction_middleware</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">functions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#transaction_middleware.functions.get_transaction_id"><code class="docutils literal notranslate"><span class="pre">get_transaction_id()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transaction_middleware.functions.transaction_id_required"><code class="docutils literal notranslate"><span class="pre">transaction_id_required()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -90,25 +89,15 @@
 <span id="functions"></span><h1>functions<a class="headerlink" href="#module-transaction_middleware.functions" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="transaction_middleware.functions.get_transaction_id">
-<span class="sig-prename descclassname"><span class="pre">transaction_middleware.functions.</span></span><span class="sig-name descname"><span class="pre">get_transaction_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_if_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#transaction_middleware.functions.get_transaction_id" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">transaction_middleware.functions.</span></span><span class="sig-name descname"><span class="pre">get_transaction_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_if_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X-Transaction-ID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#transaction_middleware.functions.get_transaction_id" title="Link to this definition"></a></dt>
 <dd><p>Get the transaction ID from the request headers or generate a new one.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>request (Request): _description_
-create_if_missing (bool, optional): _description_. Defaults to True.</p>
+<dt>Args:</dt><dd><p>create_if_missing (bool, optional): If True, generates a new transaction ID if not found in the request headers. Defaults to True.
+request (Request): _description_</p>
 </dd>
 <dt>Raises:</dt><dd><p>HTTPException: _description_</p>
 </dd>
 <dt>Returns:</dt><dd><p>str: _description_</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="transaction_middleware.functions.transaction_id_required">
-<span class="sig-prename descclassname"><span class="pre">transaction_middleware.functions.</span></span><span class="sig-name descname"><span class="pre">transaction_id_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_if_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#transaction_middleware.functions.transaction_id_required" title="Link to this definition"></a></dt>
-<dd><p>Decorator to mark a FastAPI endpoint as requiring a transaction ID.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>create_if_missing (bool, optional): Create transaction if it does not exists. Defaults to True.</p>
 </dd>
 </dl>
 </dd></dl>
