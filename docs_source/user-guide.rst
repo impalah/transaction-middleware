@@ -5,6 +5,8 @@ Transaction Middleware follows the middleware protocol and, therefore, should be
 
 The steps, using FastAPI:
 
+First, create the code to include the middleware and the endpoints you want to test.
+
 .. code-block:: python
 
    from fastapi import FastAPI, Depends
@@ -19,15 +21,32 @@ The steps, using FastAPI:
    app: FastAPI = FastAPI()
    app.add_middleware(TransactionMiddleware)
 
+   @app.get(
+      "/items/{id}",
+      tags=["Item"],
+   )
+   async def read_items(
+      request: Request,
+      response: Response,
+      id: str,
+      transaction_id: str = Depends(get_transaction_id()),
+   ):
+      return {
+         "id": id,
+         "transaction_id": transaction_id if transaction_id else "No transaction ID",
+      }
 
-Then set the environment variables (or your .env file)
+Then, optionally, set the environment variables (or your .env file).
 
 .. code-block:: bash
 
-   TODO
+   TRANSACTION_MIDDLEWARE_LOG_LEVEL=DEBUG
+   TRANSACTION_MIDDLEWARE_HEADER=X-Transaction-ID
 
-Call the method sending the id_token provided by Cognito:
+Launch the server.
+
+Call the method you want to test, and, optionally, set the transaction Id on the headers.
 
 .. code-block:: bash
 
-   curl -X GET http://localhost:8000/
+   curl -X GET http://localhost:8000/items/1234 -H "X-Transaction-ID: 2fyJr1FbRj603pH4rweEfEzQ"

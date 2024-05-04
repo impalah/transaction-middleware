@@ -1,21 +1,24 @@
 from functools import wraps
-from typing import List
+from typing import Callable, List
 
 from fastapi import HTTPException, Request
 from ksuid import Ksuid
 
 from transaction_middleware.logging import logger
+from transaction_middleware.settings import settings
 
 
 def get_transaction_id(
     create_if_missing: bool = True,
-    header_name: str = "X-Transaction-ID",
+    header_name: str = settings.TRANSACTION_MIDDLEWARE_HEADER,
+    generator: Callable[[], str] = lambda: str(Ksuid()),
 ) -> str:
     """Get the transaction ID from the request headers or generate a new one.
 
     Args:
         create_if_missing (bool, optional): If True, generates a new transaction ID if not found in the request headers. Defaults to True.
-        request (Request): _description_
+        header_name (str, optional): Name of the header to look for the transaction ID. Defaults to settings.TRANSACTION_MIDDLEWARE_HEADER.
+        generator (Callable[[], str], optional): Function to generate a new transaction ID. Defaults to lambda: str(Ksuid()).
 
     Raises:
         HTTPException: _description_
@@ -41,7 +44,7 @@ def get_transaction_id(
             logger.debug(f"Transaction ID from headers: {transaction_id}")
 
         if transaction_id is None and create_if_missing:
-            transaction_id = str(Ksuid())
+            transaction_id = generator()
             request.state.transaction_id = transaction_id
 
         return transaction_id

@@ -8,6 +8,7 @@ from starlette.responses import JSONResponse, Response
 from starlette.types import ASGIApp
 
 from transaction_middleware.logging import logger
+from transaction_middleware.settings import settings
 
 
 class TransactionMiddleware(BaseHTTPMiddleware):
@@ -20,7 +21,7 @@ class TransactionMiddleware(BaseHTTPMiddleware):
 
     def __init__(
         self,
-        header_name: str = "X-Transaction-ID",
+        header_name: str = settings.TRANSACTION_MIDDLEWARE_HEADER,
         *args,
         **kwargs,
     ):

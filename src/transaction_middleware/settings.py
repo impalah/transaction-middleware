@@ -16,8 +16,10 @@ class Settings:
     )
 
     # Disable transaction for the whole application
-    TRANSACTION_MIDDLEWARE_DISABLED = config(
-        "TRANSACTION_MIDDLEWARE_DISABLED", cast=bool, default=False
+    TRANSACTION_MIDDLEWARE_HEADER = config(
+        "TRANSACTION_MIDDLEWARE_HEADER",
+        cast=str,
+        default="X-Transaction-ID",
     )
 
 

@@ -20,7 +20,7 @@ The main variables are shown in the table below:
      - Log format
      - See python logger documentation
      - %(log_color)s%(levelname)-9s%(reset)s %(asctime)s %(name)s %(message)s
-   * - TRANSACTION_MIDDLEWARE_DISABLED
-     - Transaction middleware enabled/disabled
-     - false, true
-     - false
+   * - TRANSACTION_MIDDLEWARE_HEADER
+     - Http Header name
+     - Any String
+     - X-Transaction-ID

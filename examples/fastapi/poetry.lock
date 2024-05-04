@@ -704,7 +704,7 @@ python-baseconv = "*"
 
 [[package]]
 name = "transaction-middleware"
-version = "0.1.1"
+version = "0.1.4"
 description = "Async Transaction Middleware for FastAPI/Starlette"
 optional = false
 python-versions = ">=3.10"
