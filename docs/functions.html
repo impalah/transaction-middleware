@@ -48,7 +48,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Example of using transaction-middleware — transaction-middleware 0.1.0 documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example of using transaction-middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware-configuration.html">Middleware Configuration</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="transaction_middleware.html">transaction_middleware</a></li>
@@ -89,11 +89,12 @@
 <span id="functions"></span><h1>functions<a class="headerlink" href="#module-transaction_middleware.functions" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="transaction_middleware.functions.get_transaction_id">
-<span class="sig-prename descclassname"><span class="pre">transaction_middleware.functions.</span></span><span class="sig-name descname"><span class="pre">get_transaction_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_if_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X-Transaction-ID'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#transaction_middleware.functions.get_transaction_id" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">transaction_middleware.functions.</span></span><span class="sig-name descname"><span class="pre">get_transaction_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_if_missing:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'X-Transaction-ID'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator:</span> <span class="pre">~typing.Callable[[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#transaction_middleware.functions.get_transaction_id" title="Link to this definition"></a></dt>
 <dd><p>Get the transaction ID from the request headers or generate a new one.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>create_if_missing (bool, optional): If True, generates a new transaction ID if not found in the request headers. Defaults to True.
-request (Request): _description_</p>
+header_name (str, optional): Name of the header to look for the transaction ID. Defaults to settings.TRANSACTION_MIDDLEWARE_HEADER.
+generator (Callable[[], str], optional): Function to generate a new transaction ID. Defaults to lambda: str(Ksuid()).</p>
 </dd>
 <dt>Raises:</dt><dd><p>HTTPException: _description_</p>
 </dd>

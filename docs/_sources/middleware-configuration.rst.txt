@@ -21,6 +21,6 @@ The main variables are shown in the table below:
      - See python logger documentation
      - %(log_color)s%(levelname)-9s%(reset)s %(asctime)s %(name)s %(message)s
    * - TRANSACTION_MIDDLEWARE_HEADER
-     - Http header for the transaction ID
+     - Http Header name
      - Any String
      - X-Transaction-ID

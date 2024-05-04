@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example of using transaction-middleware — transaction-middleware 0.1.0 documentation &mdash; transaction-middleware 0.1.1 documentation</title>
+  <title>Example of using transaction-middleware &mdash; transaction-middleware 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -49,7 +49,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Example of using transaction-middleware — transaction-middleware 0.1.0 documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example of using transaction-middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware-configuration.html">Middleware Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
@@ -68,7 +68,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Example of using transaction-middleware — transaction-middleware 0.1.0 documentation</li>
+      <li class="breadcrumb-item active">Example of using transaction-middleware</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/example.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,16 +78,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="example-of-using-transaction-middleware-transaction-middleware-0-1-0-documentation">
-<h1>Example of using transaction-middleware — transaction-middleware 0.1.0 documentation<a class="headerlink" href="#example-of-using-transaction-middleware-transaction-middleware-0-1-0-documentation" title="Link to this heading"></a></h1>
-<p>Using pip:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>transaction-middleware
-</pre></div>
-</div>
-<p>Using poetry:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>transaction-middleware
-</pre></div>
-</div>
+  <section id="example-of-using-transaction-middleware">
+<h1>Example of using transaction-middleware<a class="headerlink" href="#example-of-using-transaction-middleware" title="Link to this heading"></a></h1>
+<p>An example of using transaction-middleware with FastAPI is provided in the <cite>examples</cite> directory of the source code repository.</p>
+<p>To run the example, follow these instructions:</p>
+<ol class="arabic simple">
+<li><p>Change to the <cite>examples/fastapi</cite> directory:</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">cd</span> <span class="pre">examples/fastapi</span>
+<span class="pre">`</span></code></p>
+<ol class="arabic simple" start="2">
+<li><p>Install the required dependencies:</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">poetry</span> <span class="pre">install</span>
+<span class="pre">`</span></code></p>
+<ol class="arabic simple" start="3">
+<li><p>Create an .env file with the following content:</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">TRANSACTION_MIDDLEWARE_LOG_LEVEL=DEBUG</span>
+<span class="pre">TRANSACTION_MIDDLEWARE_HEADER=X-Transaction-ID</span>
+<span class="pre">`</span></code></p>
+<ol class="arabic simple" start="4">
+<li><p>Run the example:</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">poetry</span> <span class="pre">run</span> <span class="pre">dotenv</span> <span class="pre">run</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">uvicorn</span> <span class="pre">demo.main:app</span> <span class="pre">--host</span> <span class="pre">0.0.0.0</span> <span class="pre">--port</span> <span class="pre">8000</span> <span class="pre">--reload</span>
+<span class="pre">`</span></code></p>
+<ol class="arabic simple" start="5">
+<li><p>Open your browser and navigate to <cite>http://localhost:8000/docs</cite> to access the FastAPI Swagger UI.</p></li>
+<li><p>Use the Swagger UI to test the <cite>/items/{item_id}</cite> endpoint. The transaction ID will be included in the response headers.</p></li>
+<li><p>You can also use the <cite>curl</cite> command to test the endpoint:</p></li>
+</ol>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
+curl -X ‘GET’ </p>
+<blockquote>
+<div><p>‘<a class="reference external" href="http://localhost:8000/items/1">http://localhost:8000/items/1</a>’ -H ‘accept: application/json’</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<ol class="arabic simple" start="8">
+<li><p>Check the logs to see the transaction ID being logged:</p></li>
+<li><p>You can also include the transaction id header in the request:</p></li>
+</ol>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash
+curl -X ‘GET’ </p>
+<blockquote>
+<div><p>‘<a class="reference external" href="http://localhost:8000/items/1">http://localhost:8000/items/1</a>’ -H ‘accept: application/json’ -H ‘X-Transaction-ID: 123456’</p>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>The http methods you can test are:</p>
+<ul class="simple">
+<li><p>GET /items/{item_id} : Get an item by id and return the transaction id in the response headers. Transaction id will be created if it does not exists.</p></li>
+<li><p>GET /status/{item_id}: Get the status of an item by id and return the transaction id in the response headers. Transaction id will not be created if it does not exists.</p></li>
+<li><p>GET /simple/{item_id}: Get an item by id and return the transaction id in the response headers. Transaction id will be created and the tipe will be UUID4.</p></li>
+</ul>
 </section>
 
 

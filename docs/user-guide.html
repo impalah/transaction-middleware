@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example of using transaction-middleware — transaction-middleware 0.1.0 documentation" href="example.html" />
+    <link rel="next" title="Example of using transaction-middleware" href="example.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -49,7 +49,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Example of using transaction-middleware — transaction-middleware 0.1.0 documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example of using transaction-middleware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware-configuration.html">Middleware Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
@@ -82,6 +82,7 @@
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading"></a></h1>
 <p>Transaction Middleware follows the middleware protocol and, therefore, should be added as a middleware to your FastApi or Starlette application.</p>
 <p>The steps, using FastAPI:</p>
+<p>First, create the code to include the middleware and the endpoints you want to test.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Depends</span>
 <span class="kn">from</span> <span class="nn">starlette.requests</span> <span class="kn">import</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">starlette.responses</span> <span class="kn">import</span> <span class="n">Response</span>
@@ -93,14 +94,31 @@
 
 <span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
 <span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">TransactionMiddleware</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+   <span class="s2">&quot;/items/</span><span class="si">{id}</span><span class="s2">&quot;</span><span class="p">,</span>
+   <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Item&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_items</span><span class="p">(</span>
+   <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span>
+   <span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span>
+   <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="n">transaction_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_transaction_id</span><span class="p">()),</span>
+<span class="p">):</span>
+   <span class="k">return</span> <span class="p">{</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+      <span class="s2">&quot;transaction_id&quot;</span><span class="p">:</span> <span class="n">transaction_id</span> <span class="k">if</span> <span class="n">transaction_id</span> <span class="k">else</span> <span class="s2">&quot;No transaction ID&quot;</span><span class="p">,</span>
+   <span class="p">}</span>
 </pre></div>
 </div>
-<p>Then set the environment variables (or your .env file)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>TODO
+<p>Then, optionally, set the environment variables (or your .env file).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">TRANSACTION_MIDDLEWARE_LOG_LEVEL</span><span class="o">=</span>DEBUG
+<span class="nv">TRANSACTION_MIDDLEWARE_HEADER</span><span class="o">=</span>X-Transaction-ID
 </pre></div>
 </div>
-<p>Call the method sending the id_token provided by Cognito:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8000/
+<p>Launch the server.</p>
+<p>Call the method you want to test, and, optionally, set the transaction Id on the headers.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8000/items/1234<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-Transaction-ID: 2fyJr1FbRj603pH4rweEfEzQ&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -110,7 +128,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="example.html" class="btn btn-neutral float-right" title="Example of using transaction-middleware — transaction-middleware 0.1.0 documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Example of using transaction-middleware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
