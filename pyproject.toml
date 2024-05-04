@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "transaction-middleware"
-version = "0.1.6"
+version = "0.1.7"
 description = "Async Transaction Middleware for FastAPI/Starlette"
 authors = ["impalah <impalah@gmail.com>"]
 readme = "README.md"
