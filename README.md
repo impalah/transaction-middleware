@@ -56,7 +56,7 @@ The main variables are shown in the table below:
 | --------- | --------- | --------- | --------- |
 | TRANSACTION_MIDDLEWARE_LOG_LEVEL | Log level for the application | DEBUG, INFO, WARNING, ERROR, CRITICAL | INFO |
 | TRANSACTION_MIDDLEWARE_LOG_FORMAT | Log format | See python logger documentation | %(log_color)s%(levelname)-9s%(reset)s %(asctime)s %(name)s %(message)s |
-| TRANSACTION_MIDDLEWARE_DISABLED | Transaction middleware enabled/disabled | false, true | false |
+| TRANSACTION_MIDDLEWARE_HEADER | Name for the header | Any String | X-Transaction-ID |
 
 
 

@@ -5,11 +5,12 @@ from fastapi import HTTPException, Request
 from ksuid import Ksuid
 
 from transaction_middleware.logging import logger
+from transaction_middleware.settings import settings
 
 
 def get_transaction_id(
     create_if_missing: bool = True,
-    header_name: str = "X-Transaction-ID",
+    header_name: str = settings.TRANSACTION_MIDDLEWARE_HEADER,
 ) -> str:
     """Get the transaction ID from the request headers or generate a new one.
 

@@ -12,7 +12,7 @@ Rename or copy ".env.template" file to ".env" and set the values according with 
 ```bash
 
 TRANSACTION_MIDDLEWARE_LOG_LEVEL=DEBUG
-TRANSACTION_MIDDLEWARE_DISABLED=false
+TRANSACTION_MIDDLEWARE_HEADER=X-Tranaction-ID
 
 ```
 
