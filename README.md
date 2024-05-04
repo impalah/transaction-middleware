@@ -26,9 +26,31 @@ The steps, using FastAPI:
 ```python
 
 from fastapi import FastAPI, Depends
-
 from starlette.requests import Request
 from starlette.responses import Response
+from transaction_middleware import (
+    TransactionMiddleware,
+    get_transaction_id,
+    transaction_id_required,
+)
+
+app: FastAPI = FastAPI()
+app.add_middleware(TransactionMiddleware)
+
+@app.get(
+    "/items/{id}",
+    tags=["Item"],
+)
+async def read_items(
+    request: Request,
+    response: Response,
+    id: str,
+    transaction_id: str = Depends(get_transaction_id()),
+):
+    return {
+        "id": id,
+        "transaction_id": transaction_id if transaction_id else "No transaction ID",
+    }
 
 
 ```
@@ -36,13 +58,17 @@ from starlette.responses import Response
 Then set the environment variables (or your .env file)
 
 ```bash
+TRANSACTION_MIDDLEWARE_LOG_LEVEL=DEBUG
+TRANSACTION_MIDDLEWARE_HEADER=X-Transaction-ID
 
 ```
 
-Call the method
+Launch the server.
+
+Call the method you want to test, and, optionally, set the transaction Id on the headers.
 
 ```bash
-curl -X GET http://localhost:8000/ -H "Authorization: Bearer MY_ID_TOKEN"
+curl -X GET http://localhost:8000/items/1234 -H "X-Transaction-ID: 2fyJr1FbRj603pH4rweEfEzQ"
 ```
 
 
